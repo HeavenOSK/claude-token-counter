@@ -1,6 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import { useTokenHistory } from './hooks/useTokenHistory';
+import { HistoryPanel } from './components/history/HistoryPanel';
 
 const MODELS = [
   'claude-3-haiku-20240307',
@@ -16,6 +18,7 @@ export default function Home() {
   const [model, setModel] = useState<Model>('claude-3-haiku-20240307');
   const [tokenCount, setTokenCount] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const { history, addHistoryItem } = useTokenHistory();
 
   const countTokens = async () => {
     try {
@@ -34,6 +37,13 @@ export default function Home() {
       }
       
       setTokenCount(data.tokenCount);
+      
+      // Add to history
+      addHistoryItem({
+        model,
+        text,
+        tokenCount: data.tokenCount,
+      });
     } catch (error) {
       console.error('Failed to count tokens:', error);
       alert('Failed to count tokens');
@@ -44,11 +54,11 @@ export default function Home() {
 
   return (
     <main className="min-h-screen p-8 flex flex-col items-center">
-      <h1 className="text-3xl font-bold mb-8">
-        Claude Token Counter
-      </h1>
-      
-      <div className="w-full max-w-2xl">
+      <div className="w-full max-w-2xl pr-[240px]">
+        <h1 className="text-3xl font-bold mb-8">
+          Claude Token Counter
+        </h1>
+  
         <select
           value={model}
           onChange={(e) => setModel(e.target.value as Model)}
@@ -84,6 +94,8 @@ export default function Home() {
           )}
         </div>
       </div>
+
+      <HistoryPanel history={history} />
     </main>
   );
 }
