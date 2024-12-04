@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTokenHistory } from './hooks/useTokenHistory';
 import { HistoryPanel } from './components/history/HistoryPanel';
 import Image from 'next/image';
@@ -14,12 +14,27 @@ const MODELS = [
 
 type Model = typeof MODELS[number];
 
+const LOCAL_STORAGE_MODEL_KEY = 'claude-token-counter-model';
+
 export default function Home() {
   const [text, setText] = useState('');
   const [model, setModel] = useState<Model>('claude-3-haiku-20240307');
   const [tokenCount, setTokenCount] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const { history, addHistoryItem } = useTokenHistory();
+
+  // localStorage から model を復元
+  useEffect(() => {
+    const savedModel = localStorage.getItem(LOCAL_STORAGE_MODEL_KEY);
+    if (savedModel && MODELS.includes(savedModel as Model)) {
+      setModel(savedModel as Model);
+    }
+  }, []);
+
+  // model が変更されたときに localStorage に保存
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_MODEL_KEY, model);
+  }, [model]);
 
   const countTokens = async () => {
     try {
