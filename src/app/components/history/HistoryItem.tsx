@@ -35,7 +35,7 @@ export const HistoryItem = ({ item }: Props) => {
       </div>
       
       <div className="mt-2 font-mono text-xs">
-        <pre className="whitespace-pre-wrap bg-gray-50 p-2 rounded">
+        <pre className="whitespace-pre bg-gray-50 p-2 rounded overflow-x-auto">
           {isExpanded ? item.text : truncateText(item.text)}
         </pre>
         {(item.text.split('\n').length > 4 || item.text.length > 200) && (
