@@ -32,15 +32,12 @@ export async function POST(request: Request) {
       );
     }
 
-    const messages = await anthropic.messages.create({
+    const result = await anthropic.beta.messages.countTokens({
       model: model as Model,
-      max_tokens: 1,
       messages: [{ role: "user", content: text }],
     });
     
-    const tokenCount = messages.usage.input_tokens;
-    
-    return NextResponse.json({ tokenCount });
+    return NextResponse.json({ tokenCount: result.input_tokens });
   } catch (error) {
     if (error instanceof Error) {
       return NextResponse.json(
