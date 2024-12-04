@@ -36,7 +36,7 @@ export default function Home() {
       setTokenCount(data.tokenCount);
     } catch (error) {
       console.error('Failed to count tokens:', error);
-      alert('トークン数の計測に失敗しました');
+      alert('Failed to count tokens');
     } finally {
       setIsLoading(false);
     }
@@ -65,7 +65,7 @@ export default function Home() {
           className="w-full h-64 p-4 border rounded-lg mb-4 resize-none"
           value={text}
           onChange={(e) => setText(e.target.value)}
-          placeholder="テキストを入力してください..."
+          placeholder="Enter your text here..."
         />
         
         <div className="flex flex-col items-center gap-4">
@@ -79,7 +79,7 @@ export default function Home() {
           
           {tokenCount !== null && (
             <p className="text-lg">
-              トークン数: <span className="font-bold">{tokenCount}</span>
+              Token count: <span className="font-bold">{tokenCount}</span>
             </p>
           )}
         </div>
