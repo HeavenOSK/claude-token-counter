@@ -86,7 +86,7 @@ export default function Home() {
             Token counting API docs
           </a>
           <a
-            href="https://github.com/HeavenOSK/claude-token-counter/blob/9d3abdf51babe42736d8635085bb0a3f02110ec2/src/app/api/count-tokens/route.ts"
+            href="https://github.com/HeavenOSK/claude-token-counter"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-1 hover:text-gray-900"
