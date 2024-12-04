@@ -18,7 +18,7 @@ const LOCAL_STORAGE_MODEL_KEY = 'claude-token-counter-model';
 
 export default function Home() {
   const [text, setText] = useState('');
-  const [model, setModel] = useState<Model>('claude-3-haiku-20240307');
+  const [model, setModel] = useState<Model>('claude-3-5-sonnet-20240229');
   const [tokenCount, setTokenCount] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const { history, addHistoryItem } = useTokenHistory();
